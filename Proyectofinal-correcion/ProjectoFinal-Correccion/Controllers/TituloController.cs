@@ -6,42 +6,42 @@ namespace ProjectoFinal.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class SalarioController : Controller
+    public class TituloController : Controller
     {
         public readonly AplicacionContext _aplicacionContext;
-        public SalarioController(AplicacionContext context)
+        public TituloController(AplicacionContext context)
         {
             _aplicacionContext = context;
         }
         [HttpPost]
-        [Route("AgregarSalario")]
-        public async Task<IActionResult> Post([FromBody] Salario salario)
+        [Route("AgregarTitulo")]
+        public async Task<IActionResult> Post([FromBody] Titulo titulo)
         {
-            _aplicacionContext.Salario.Add(salario);
+            _aplicacionContext.Titulo.Add(titulo);
             await _aplicacionContext.SaveChangesAsync();
             return StatusCode(StatusCodes.Status200OK, "Agregado correctamente");
         }
         [HttpGet]
-        [Route("MostrarSalario")]
+        [Route("MostrarTitulo")]
         public async Task<IActionResult> Get()
         {
-            List<Salario> listaSalarios = _aplicacionContext.Salario.OrderByDescending(e => e.idSalario).ToList();
-            return StatusCode(StatusCodes.Status200OK, listaSalarios);
+            List<Titulo> listaTitulos = _aplicacionContext.Titulo.OrderByDescending(e => e.idTitulo).ToList();
+            return StatusCode(StatusCodes.Status200OK, listaTitulos);
         }
         [HttpPut]
-        [Route("EditarSalario/")]
-        public async Task<IActionResult> Put([FromBody] Salario salario)
+        [Route("EditarTitulo/")]
+        public async Task<IActionResult> Put([FromBody] Titulo titulo)
         {
-            _aplicacionContext.Salario.Update(salario);
+            _aplicacionContext.Titulo.Update(titulo);
             await _aplicacionContext.SaveChangesAsync();
             return StatusCode(StatusCodes.Status200OK, "Editado correctamente ");
         }
         [HttpDelete]
-        [Route("EliminarSalario/")]
+        [Route("EliminarTitulo/")]
         public async Task<IActionResult> Delete(int? id)
         {
-            Salario salario = _aplicacionContext.Salario.Find(id);
-            _aplicacionContext.Salario.Remove(salario);
+            Titulo titulo = _aplicacionContext.Titulo.Find(id);
+            _aplicacionContext.Titulo.Remove(titulo);
             await _aplicacionContext.SaveChangesAsync();
             return StatusCode(StatusCodes.Status200OK, "Eliminado correctamente  ");
         }
