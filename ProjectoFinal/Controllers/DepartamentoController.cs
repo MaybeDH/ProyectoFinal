@@ -6,42 +6,42 @@ namespace ProjectoFinal.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class SeguroController : Controller
+    public class DepartamentoController : Controller
     {
         public readonly AplicacionContext _aplicacionContext;
-        public SeguroController(AplicacionContext context)
+        public DepartamentoController(AplicacionContext context)
         {
             _aplicacionContext = context;
         }
         [HttpPost]
-        [Route("AgregarSeguro")]
-        public async Task<IActionResult> Post([FromBody] Seguro seguro)
+        [Route("AgregarDepartamento")]
+        public async Task<IActionResult> Post([FromBody] Departamento departamento)
         {
-            _aplicacionContext.Seguro.Add(seguro);
+            _aplicacionContext.Departamento.Add(departamento);
             await _aplicacionContext.SaveChangesAsync();
             return StatusCode(StatusCodes.Status200OK, "Agregado correctamente");
         }
         [HttpGet]
-        [Route("MostrarSeguro")]
+        [Route("MostrarDepartamento")]
         public async Task<IActionResult> Get()
         {
-            List<Seguro> listaSeguros = _aplicacionContext.Seguro.OrderByDescending(e => e.idSeguro).ToList();
-            return StatusCode(StatusCodes.Status200OK, listaSeguros);
+            List<Departamento> listaDepartamentos = _aplicacionContext.Departamento.OrderByDescending(e => e.idDepartamento).ToList();
+            return StatusCode(StatusCodes.Status200OK, listaDepartamentos);
         }
         [HttpPut]
-        [Route("EditarSeguro/")]
-        public async Task<IActionResult> Put([FromBody] Seguro seguro)
+        [Route("EditarDepartamento/")]
+        public async Task<IActionResult> Put([FromBody] Departamento departamento)
         {
-            _aplicacionContext.Seguro.Update(seguro);
+            _aplicacionContext.Departamento.Update(departamento);
             await _aplicacionContext.SaveChangesAsync();
             return StatusCode(StatusCodes.Status200OK, "Editado correctamente ");
         }
         [HttpDelete]
-        [Route("EliminarSeguro/")]
+        [Route("EliminarDepartamento/")]
         public async Task<IActionResult> Delete(int? id)
         {
-            Seguro seguro = _aplicacionContext.Seguro.Find(id);
-            _aplicacionContext.Seguro.Remove(seguro);
+            Departamento departamento = _aplicacionContext.Departamento.Find(id);
+            _aplicacionContext.Departamento.Remove(departamento);
             await _aplicacionContext.SaveChangesAsync();
             return StatusCode(StatusCodes.Status200OK, "Eliminado correctamente  ");
         }
